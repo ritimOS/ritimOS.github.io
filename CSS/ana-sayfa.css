@@ -1,9 +1,8 @@
-/*
- * 4 January 2022
- * CSS-only Back-To-Top button implemented in a website layout
- * based on Temani Afif's FCC article (link in the description)
- * works in all modern browsers (including mobile devices)
- */
+
+
+
+
+
 
  :root {
 	--back-to-top-offset: 200px;
