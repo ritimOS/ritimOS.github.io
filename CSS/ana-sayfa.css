@@ -1,28 +1,187 @@
+/*
+ * 4 January 2022
+ * CSS-only Back-To-Top button implemented in a website layout
+ * based on Temani Afif's FCC article (link in the description)
+ * works in all modern browsers (including mobile devices)
+ */
+
+ :root {
+	--back-to-top-offset: 200px;
+	--back-to-top-button-size: 2.8em;
+
+	--base-font-size: 120%;
+	--base-line-height: 170%;
+	--base-font-family: Poppins, system-ui, sans-serif;
+
+	--heading-font-family: Montserrat, system-ui, sans-serif;
+	--heading-padding-start: 1em;
+	--h1-font-size: 320%;
+	--h1-line-height: 120%;
+	--h1-padding-end: 0.4em;
+
+	--main-padding-inline: 2em;
+	--main-padding-block: 3em;
+	--main-max-width: 1000px;
+
+	--paragraph-margin-block: 1em;
+	--list-margin-inline: 2em;
+	--list-item-padding-block: 0.2em;
+
+	--color-background: #efefff;
+	--color-heading: hsl(210, 100%, 7%);
+	--color-paragraph: rgba(0, 0, 0, 0.8);
+	--color-accent: hsl(210, 100%, 39%);
+	--color-accent-bright: hsl(210, 100%, 49%);
+	--color-accent-alpha: hsla(210, 100%, 39%, 0.4);
+	--color-img-shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* === relevant portion === */
+#back-to-top {
+	place-self: end;
+	position: sticky;
+	margin-top: calc(100vh + var(--back-to-top-offset));
+	bottom: 2.7em;
+	right: 2em;
+}
+
+html,
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #151515;
-  }
-  
-  header {
-    background-color: #ad5a5a;
-    color: #fff;
-    padding: 20px;
-  }
-  
-  nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li {
-    display: inline-block;
-    margin-right: 20px;
-  }
-  
-  nav ul li a {
-    color: #ffffff;
-    text-decoration: none;
-  }
+	scroll-behavior: smooth;
+}
+
+body {
+	display: grid;
+	grid-template-columns: auto 0px;
+
+	/* 	display: flex;
+	flex-direction: row;
+	justify-content: center; */
+
+	/* 	overflow-x: hidden;
+	overflow-y: auto; */
+}
+
+/* === quick and dirty reset === */
+p,
+h1,
+h2,
+h3,
+ol,
+li,
+img {
+	padding: 0;
+	margin: 0;
+}
+
+/* === to make things look pretty === */
+body {
+	background-color: var(--color-background);
+}
+
+html {
+	font-family: var(--base-font-family);
+	font-size: var(--base-font-size);
+	line-height: var(--base-line-height);
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	min-height: 100%;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--heading-font-family);
+	padding-top: var(--heading-padding-start);
+	color: var(--color-heading);
+}
+
+#back-to-top {
+	min-width: var(--back-to-top-button-size);
+	height: var(--back-to-top-button-size);
+	border-radius: 50%;
+
+	display: grid;
+	place-items: center;
+
+	text-decoration: none;
+	background-color: var(--color-accent);
+	box-shadow: 0 0.6em 1em 0.2em var(--color-accent-alpha);
+	transform: translateY(0%);
+	transition: ease-out 200ms;
+	transition-property: transform, background-color;
+}
+
+#back-to-top:hover {
+	transform: translateY(-22%);
+	background-color: var(--color-accent-bright);
+}
+
+#back-to-top::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 100%;
+	height: 200%;
+	transform: translateY(-30%);
+	background-color: rgba(0, 0, 0, 0);
+	display: block;
+}
+
+main {
+	padding: var(--main-padding-block) var(--main-padding-inline);
+	max-width: var(--main-max-width);
+	margin: auto;
+}
+
+h1 {
+	font-weight: 800;
+	font-size: var(--h1-font-size);
+	line-height: var(--h1-line-height);
+	padding-bottom: var(--h1-padding-end);
+}
+
+p {
+	margin: var(--paragraph-margin-block) 0;
+	color: var(--color-paragraph);
+}
+
+ol {
+	margin: 0 var(--list-margin-inline);
+	color: var(--color-paragraph);
+}
+
+li {
+	padding: var(--list-item-padding-block) 0;
+}
+
+img {
+	max-width: 100%;
+	border-radius: max(0.5em, 4px);
+	box-shadow: 0 0.5em 1em 0 var(--color-img-shadow);
+}
+
+a {
+	color: var(--color-accent);
+	text-decoration-style: solid;
+	text-decoration-thickness: 6px;
+	text-decoration-color: var(--color-accent-alpha);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-background: #090b10;
+		--color-heading: #80cbc4;
+		--color-paragraph: #7782b6; /*#454e79*/
+		--color-accent: #80cbc4;
+		--color-accent-bright: #90e4dc;
+		--color-accent-alpha: #90e4dc24;
+		--color-img-shadow: #90e4dc24;
+	}
+}
